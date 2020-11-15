@@ -178,13 +178,7 @@ Vim具有程序编辑的能力，可以看做是vi的增强版本，可以主动
 
 **三种模式转换**
 
-vim filename -> 普通模式
-
-普通模式  输入 i a o  -->  插入模式  按ESC  -->  普通模式
-
-普通模式  输入 ：-->  命令行模式  按ESC  -->  普通模式
-
-![](G:\GitHub_Repository\runbyte\markdown\linux\vim-vi-workmodel.png)
+![](linux_img\vim-vi-workmodel.png)
 
 ## 插入和退出命令
 
@@ -246,6 +240,8 @@ L：屏幕尾
 
 # 关机重启指令
 
+
+
 ## 基本命令介绍
 
 ```shell
@@ -265,6 +261,152 @@ sync				把内存的数据同步到磁盘
 ## 注意事项
 
 无论是重启系统还是关闭系统，首先要运行`sync`命令，把内存中的数据写到磁盘中
+
+
+
+# 用户登录和注销
+
+
+
+## 基本介绍
+
+登录时尽量少用root帐号登录，因为它是系统管理员，最大的权限，避免操作失误。可以利用普通用户登录，登录后再用`su -`用户名命令来切换成系统管理员身份。
+
+在提示符下输入logout即可注销用户
+
+## 注意事项
+
+logout注销指令在图形运行级别无效，在运行级别3（远程登录）下有效
+
+运行级别这个概念，后面给大家介绍
+
+
+
+# 用户管理
+
+
+
+## 基本介绍
+
+Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。
+
+Linux的用户至少要属于一个组。
+
+用户家目录的概念：`/home/`目录下有各个创建的用户对应的家目录，当用户登录时，会自动的进入到自己的家目录
+
+
+
+## 添加用户
+
+```shell
+useradd [选项] 用户名
+例如：
+#添加用户，自动创建ylx同名组，自动在/home下创建同名家目录
+useradd ylx
+
+#添加用户直接指定组
+useradd -g 用户组 用户名
+
+#也可以通过 useradd -d 指定目录 新的用户名，给新创建的用户指定家目录
+useradd -d /home/xhhome xh
+
+#给用户指定密码
+passwd ylx
+```
+
+
+
+## 删除用户
+
+要在`root`用户权限下，实际开发中，应该尽量保留家目录
+
+```shell
+userdel [选项] 用户名
+例如：
+#删除用户xh，但是要保留家目录
+userdel xh
+#删除用户，以及用户主目录
+userdel -r xh
+```
+
+
+
+## 查询用户信息
+
+```shell
+id 用户名
+例如：
+id yanlixian
+#显示的是用户ID，组ID，组名
+uid=1002(yanlixian) gid=1002(yanlixian) 组=1002(yanlixian)
+
+#用户不存在，显示无此用户
+```
+
+
+
+## 切换用户
+
+在操作linux中，如果当前的用户权限不够，可以通过`su -指令`切换到高权限用户，比如root
+
+```shell
+su - 切换用户名
+例如：
+#从权限高的用户切换到权限低的用户，不需要输入密码，反之需要
+su - yanlixian
+#当需要返回到原来用户时，使用exit指令
+exit
+```
+
+
+
+## 用户组
+
+类似于角色，系统可以对有共性的多个用户进行统一的管理
+
+```shell
+#新增组
+groupadd 组名
+例如：
+groupadd yan
+
+#删除组
+groupdel 组名
+例如：
+groupdel yan
+
+#添加用户直接指定组
+useradd -g 用户组 用户名
+例如：
+useradd -g yan yanlixian
+
+#修改用户组
+usermod -g 用户组 用户名
+例如：
+#将yanlixian从yan组切换到yanjia组
+usermod -g yanjia yanlixian
+```
+
+
+
+## 用户和组的相关文件
+
+```shell
+#用户（user）的配置文件，记录用户的各种信息
+vim /etc/passwd
+#用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell/etc/shadow文件
+yanlixian:x:1002:1002::/home/yanlixian:/bin/bash
+
+#口令的配置文件
+vim /etc/shadow
+#登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志
+yanlixian:$6$FbXFfyq.$WI.0yUIZFBemv1bFyq4fnkgn172EK8mn8Z7cHIcf.v/7b9fOw4uIz9XrS9ab1An9qnLJz4UOhfhPbxls42jIL0:18581:0:99999:7:::
+
+#组(group)的配置文件，记录Linux包含的组的信息
+vim /etc/group
+#组名:口令:组标识号:组内用户列表(一般看不到)
+yan:x:1003:
+```
 
 
 
