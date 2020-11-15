@@ -1,6 +1,10 @@
 # linux安装ftp步骤
 
-1，查看是否安装了FTP：rpm -qa |grep vsftpd
+## 1，查看是否安装了FTP：
+
+```bash
+rpm -qa |grep vsftpd
+```
 
 如果没有任何输出，表示没有安装。
 
@@ -8,27 +12,30 @@
 
 
 
-2，如果没有安装，可以使用如下命令直接安装
+## 2，如果没有安装，可以使用如下命令直接安装
 
+```shell
+// 默认安装目录：/etc/vsftpd
 yum -y install vsftpd
-
-默认安装目录：/etc/vsftpd
-
+```
 
 
-3，添加FTP账号
 
-useradd admin -s /sbin/nologin
+## 3，添加FTP账号
 
-该账户路径默认指向/home/admin目录
-设置密码：passwd admin 
+```shell
+// 该账户路径默认指向/home/admin目录
+useradd ftpadmin -s /sbin/nologin
 
- 
-
-4，一些常用设置
+// 设置密码
+passwd admin
+```
 
  
 
+## 4，一些常用设置
+
+ ```properties
 a，设置匿名用户可以下载上传
 
 将文件/etc/vsftpd/vsftpd.conf 中
@@ -50,17 +57,23 @@ d，根据个人需要设置默认目录
 将admin:x:500:500::/home/admin:/sbin/nologin
 
 改成admin:x:500:500::/www:/sbin/nologin
+ ```
 
-5，启动
 
-启动：service vsftpd start 
 
-重启：service vsftpd restart
+## 5，启动
 
-6，测试
+启动：`service vsftpd start `
+
+重启：`service vsftpd restart`
+
+
+
+## 6，测试
+
 用浏览器地址栏或者我的电脑地址栏测试下
 
- ftp://103.96.XX.XX
+`ftp://103.96.XX.XX`
 
 
 
@@ -70,9 +83,7 @@ d，根据个人需要设置默认目录
 
 
 
-
-
-
+## 其他操作
 
 1. 修改vsftpd的默认根目录
 2.  
