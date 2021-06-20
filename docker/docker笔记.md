@@ -482,10 +482,10 @@ docker inspect 容器ID
 # 我们通常容器都是使用后台方式运行的，需要进入容器，修改一些配置
 
 # 方式一命令
-docker exec -it 容器id bashShell
+docker exec -it 容器id bash
 
 # 方式二命令
-docker attach 容器id bashShell
+docker attach 容器id bash
 
 # 区别
 docker exec		进入容器后开启一个新的终端，可以在里面操作（常用）
@@ -677,10 +677,6 @@ docker history 镜像ID
 ```shell
 docker build -t diytomcat .
 ```
-
-![image-20210618030107960](img\image-20210618030107960.png)
-
-
 
 
 
