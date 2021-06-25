@@ -4,6 +4,8 @@
 
 ```shell
 # 第一步
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
 # 这个可能快点!
 cur1 -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m' > /usr/loca1/bin/docker-compose
 

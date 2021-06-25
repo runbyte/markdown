@@ -17,13 +17,13 @@ docker exec -it nginx-01 /bin/bash
 whereis nginx
 ```
 
-![image-20210621020055418](G:\GitHub_Repository\runbyte\markdown\docker\image-20210621020055418.png)
+![image-20210621020055418](img\image-20210621020055418.png)
 
 ```shell
 docker volume inspect juming-nginx
 ```
 
-![image-20210621020159251](G:\GitHub_Repository\runbyte\markdown\docker\image-20210621020159251.png)
+![image-20210621020159251](img\image-20210621020159251.png)
 
 所有的docker容器内的卷，没有知道目录的情况下，都在`/var/lib/docker/volumes/xxx/_data`下
 
