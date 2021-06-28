@@ -76,6 +76,8 @@ dicker --help
 
 ## 镜像相关
 
+### 基础命令
+
 ```shell
 # 查看镜像
 docker images
@@ -87,7 +89,15 @@ docker pull centos:7
 docker rmi $IMAGE_ID
 # 删除所有镜像
 docker rmi `docker images -q`
+```
 
+### 保存与加载
+
+```shell
+# 镜像保存为文件
+docker save -o mynginx.tar mynginx
+# 文件加载为镜像
+docker load -i mynginx.tar
 ```
 
 ## 容器相关
@@ -150,6 +160,19 @@ docker exec		进入容器后开启一个新的终端，可以在里面操作（�
 docker attach	进入容器正在执行的终端
 ```
 
+### 删除容器
+
+```shell
+docker rm $CONTAINER_ID/NAME
+# 删除所有
+docker rm `docker ps -a -q`
+docker rm $(docker ps -aq)
+# 删除所有容器
+docker ps -a -q|xargs docker rm
+```
+
+
+
 ### 交互式容器
 
 ==exit 容器会停止==
@@ -168,7 +191,7 @@ docker run -it --name=mycentos centos:7 /bin/bash
 docker run -di --name=mycentos2 centos:7
 ```
 
-### 文件拷贝
+## 文件拷贝
 
 ```shell
 # 宿主机 考入 容器
@@ -177,7 +200,7 @@ docker cp 需要拷贝的文件或目录 容器名称:容器目录
 docker cp 容器名称:容器目录 需要拷贝的文件或目录
 ```
 
-### 目录挂载
+## 目录挂载
 
 ```shell
 # 创建容器 添加-v参数 后边为   宿主机目录:容器目录
@@ -201,14 +224,14 @@ docker run -d -p 888:80 --name nginx01 -v juming-nginx:/etc/nginx:ro nginx:1.20
 docker run -d -p 888:80 --name nginx01 -v juming-nginx:/etc/nginx:rw nginx:1.20
 ```
 
-### volume
+## `volume`
 
 ```shell
 docker volume ls
 docker volume inspect 名字
 ```
 
-### 查看日志
+## 查看日志
 
 ```shell
 # 显示日志
@@ -217,11 +240,11 @@ docker volume inspect 名字
 docker logs -tf -t --tail 10 容器ID
 ```
 
-### 查看容器进程信息
+## 查看容器进程信息
 
 `docker top 容器ID`
 
-### 查看元数据
+## 查看元数据
 
 ```shell
 # 我们可以通过以下命令查看容器运行的各种数据
@@ -230,18 +253,7 @@ docker inspect 容器NAME/ID
 docker inspect --format='{{.NetworkSettings.IPAddress}}' mycentos2
 ```
 
-### 删除容器
-
-```shell
-docker rm $CONTAINER_ID/NAME
-# 删除所有
-docker rm `docker ps -a -q`
-docker rm $(docker ps -aq)
-# 删除所有容器
-docker ps -a -q|xargs docker rm
-```
-
-## MYSQL
+# MYSQL
 
 ```shell
 # 拉取镜像
@@ -257,7 +269,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTI
 # Navicat 连接
 ```
 
-## NGINX
+# NGINX
 
 ```shell
 docker pull nginx:1.21
@@ -287,13 +299,6 @@ server {
 		index index.html index.htm;
 	}
 }
-```
-
-## 备份与迁移
-
-```shell
-docker save -o mynginx.tar mynginx
-docker load -i mynginx.tar
 ```
 
 # `Dockerfile`
