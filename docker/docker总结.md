@@ -1,5 +1,7 @@
 # `docker`常用命令
 
+[toc]
+
 ## 安装卸载
 
 ```shell
@@ -378,6 +380,20 @@ networks:
 # 在yml文件目录下
 docker-compose up -d
 ```
+
+## 案例
+
+```yml
+version: '3.8' 
+services:
+  account-service:
+    image: account:1.0.0
+    restart: always
+    ports:
+      - "39999:8003"
+```
+
+
 
 # `wordpress`案例
 
